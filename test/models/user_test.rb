@@ -5,10 +5,12 @@ class UserTest < ActiveSupport::TestCase
     @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar")
   end
   
+  # @userは正当か
   test "should be valid" do
     assert @user.valid?
   end
   
+  # 空の名前・メールアドレスに対するバリデーションが働いているか
   test "name should be present" do
     @user.name = "   "
     assert_not @user.valid?
@@ -18,6 +20,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
   
+  # 名前・メールアドレスの文字数制限についてのバリデーションが働いているか
   test "name should not be too long" do
     @user.name = "a" * 51
     assert_not @user.valid?
@@ -27,6 +30,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
   
+　# メールアドレスのフォーマットに関するバリデーションが働いているか
   test "email validation should accept valid addresses" do
     valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org first.last@foo.jp alice+bob@baz.cn]
     valid_addresses.each do |valid_address|
@@ -42,6 +46,7 @@ class UserTest < ActiveSupport::TestCase
     end
   end
   
+  # メールアドレスに一意性があるかどうか
   test "email address should be unique" do
     duplicate_user = @user.dup
     duplicate_user.email = @user.email.upcase
@@ -55,6 +60,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal mixed_case_email.downcase, @user.reload.email
   end
   
+  # パスワードに関するバリデーションが働いているか
   test "password should be present (nonblank)" do
     @user.password = @user.password_confirmation = " " * 6
     assert_not @user.valid?
