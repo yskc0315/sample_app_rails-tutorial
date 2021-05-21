@@ -3,6 +3,7 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+<<<<<<< HEAD
     <%= form_with url: login_path, scope: :session, local: true do |f| %>
       <%= f.label :email %>
       <%= f.email_field :email, class: "form-control" %>
@@ -14,5 +15,19 @@
     <% end %>
     
     <p>New User? <%= link_to "Sign up now!", signup_path %></p>
+=======
+    <%= form_for(:session, url: login_path) do |f| %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.submit "Log in", class: "btn btn-primary" %>
+    <% end %>
+
+    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+>>>>>>> 76153bc012b7b6c118341d18b635b90329ee5a96
   </div>
 </div>
